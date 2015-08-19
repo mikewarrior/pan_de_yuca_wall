@@ -1,3 +1,4 @@
 pyw-env
 *.pyc
+.vagrant
 
