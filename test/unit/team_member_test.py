@@ -1,5 +1,5 @@
 from nose.tools import *
-from helpers import *
+from test.helpers import *
 from app.team_member import TeamMember
 
 class TestTeamMember:
