@@ -1,4 +1,4 @@
-
+from app.team_member import TeamMember
 
 class Repository:
     def __init__(self, database):
@@ -11,3 +11,7 @@ class Repository:
             }
 
         self.database.team_members.insert(team_member)
+
+    def get_members(self):
+        cursor = self.database.team_members.find()
+        return [TeamMember(member['name'], member['late_days']) for member in cursor]
