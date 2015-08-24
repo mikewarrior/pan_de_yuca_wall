@@ -1,14 +1,6 @@
-from invoke import task
+from task.test import test_collection
 from invoke import Collection
-import subprocess
 
 
-@task
-def test_unit():
-    print 'Running unit tests'
-    subprocess.call(['nosetests', 'test/unit'])
-
-@task
-def test_integration():
-    print 'Running integration tests'
-    subprocess.call(['nosetests', 'test/integration'])
+ns = Collection()
+ns.add_collection(test_collection)
