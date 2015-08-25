@@ -1,19 +1,18 @@
 from nose.tools import *
 from pymongo import MongoClient
 from app.team_member import TeamMember
-from app.repository import Repository
+from app.repository_factory import RepositoryFactory
 
 class TestRepository:
 
     def setUp(self):
-        self.database = MongoClient().test_yuca
-        self.repository = Repository(self.database)
+        self.repository = RepositoryFactory.create_repository('test')
 
     def test_persists_team_member(self):
         team_member = TeamMember('Cris')
 
         self.repository.insert(team_member)
-        persisted = self.database.team_members.find().next()
+        persisted = self.repository.database.team_members.find().next()
 
         assert_equal('Cris', persisted['name'])
         assert_equal(0, persisted['late_days'])
@@ -38,5 +37,16 @@ class TestRepository:
         assert_equal('Pao', persisted_pao.name)
         assert_equal(10, persisted_pao.late_days)
 
+    def test_deletes_all_data(self):
+        mike = TeamMember('Mike')
+        cris = TeamMember('Cris')
+        self.repository.insert(mike)
+        self.repository.insert(cris)
+
+        self.repository.delete_all()
+        team_members = self.repository.get_members()
+
+        assert_equal([], team_members)
+
     def tearDown(self):
-        self.database.team_members.drop()
+        self.repository.database.team_members.drop()

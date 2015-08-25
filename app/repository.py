@@ -1,5 +1,6 @@
 from app.team_member import TeamMember
 
+
 class Repository:
     def __init__(self, database):
         self.database = database
@@ -15,3 +16,6 @@ class Repository:
     def get_members(self):
         cursor = self.database.team_members.find()
         return [TeamMember(member['name'], member['late_days']) for member in cursor]
+
+    def delete_all(self):
+        self.database.team_members.drop()
