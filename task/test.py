@@ -12,11 +12,17 @@ def integration():
     print 'Running integration tests'
     subprocess.call(['nosetests', 'test/integration'])
 
-@task(pre=[unit, integration], default=True)
+@task
+def functional():
+    print 'Running functional tests'
+    subprocess.call(['nosetests', 'test/functional'])
+
+@task(pre=[unit, integration, functional], default=True)
 def all_tests():
     pass
 
 test_collection = Collection('test')
 test_collection.add_task(unit)
 test_collection.add_task(integration)
+test_collection.add_task(functional)
 test_collection.add_task(all_tests, 'all')
