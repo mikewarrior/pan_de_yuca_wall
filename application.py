@@ -21,3 +21,7 @@ def all_team_members():
                     for team_member in repository.get_members()]
 
     return json.dumps(team_members), 200
+
+
+if __name__ == '__main__':
+    yuca_wall.run()
