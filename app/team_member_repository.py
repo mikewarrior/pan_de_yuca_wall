@@ -1,7 +1,7 @@
 from app.team_member import TeamMember
 
 
-class Repository:
+class TeamMemberRepository:
     def __init__(self, database):
         self.database = database
 

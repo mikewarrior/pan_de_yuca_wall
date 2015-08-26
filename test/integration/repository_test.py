@@ -6,7 +6,7 @@ from app.repository_factory import RepositoryFactory
 class TestRepository:
 
     def setUp(self):
-        self.repository = RepositoryFactory.create_repository('test')
+        self.repository = RepositoryFactory.create_repository()
 
     def test_persists_team_member(self):
         team_member = TeamMember('Cris')
